@@ -18,25 +18,14 @@
 
         <TextView
             android:id="@+id/textViewShowNr"
+            style="@style/textview_answer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/textview_answer"
-            android:text="3"
-            />
+            android:text="3" />
 
-       <Button
-           android:id="@+id/btnClear"
-           android:text="Clear"
-           style="@style/btnClear"
-           android:layout_alignParentRight="true"
-
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_below="@id/textViewShowNr"/>
     </RelativeLayout>
 
-    <android.support.percent.PercentRelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -46,7 +35,6 @@
             android:id="@+id/btn7"
             style="@style/button_game"
             android:onClick="btnClicked"
-            android:textSize="25dp"
             android:text="7"
             app:layout_heightPercent="25%"
             app:layout_widthPercent="25%" />
@@ -54,176 +42,160 @@
         <Button
             android:id="@+id/btn8"
             style="@style/button_game"
-            android:onClick="btnClicked"
             android:layout_alignTop="@id/btn7"
             android:layout_toRightOf="@id/btn7"
+            android:onClick="btnClicked"
             android:text="8"
-            android:textSize="25dp"
             app:layout_heightPercent="25%"
             app:layout_widthPercent="25%" />
 
         <Button
-            android:onClick="btnClicked"
-            style="@style/button_game"
             android:id="@+id/btn9"
+            style="@style/button_game"
             android:layout_alignTop="@id/btn8"
             android:layout_toRightOf="@id/btn8"
+            android:onClick="btnClicked"
             android:text="9"
-            android:textSize="25dp"
             app:layout_heightPercent="25%"
             app:layout_widthPercent="25%" />
 
-      <!--  <Button
-            android:onClick="btnClicked"
-            style="@style/button_game"
-            android:id="@+id/btnClear"
-            android:layout_alignTop="@id/btn9"
-            android:layout_toRightOf="@id/btn9"
-            android:text="C"
-            android:textSize="25dp"
-            app:layout_heightPercent="20%"
-            app:layout_widthPercent="25%" /> -->
-
         <Button
-            android:onClick="btnClicked"
-            style="@style/button_game"
             android:id="@+id/btn4"
+            style="@style/button_game"
             android:layout_alignRight="@id/btn7"
             android:layout_below="@id/btn7"
+            android:onClick="btnClicked"
             android:text="4"
-            android:textSize="25dp"
             app:layout_heightPercent="25%"
             app:layout_widthPercent="25%" />
 
         <Button
-            android:onClick="btnClicked"
-            style="@style/button_game"
             android:id="@+id/btn5"
+            style="@style/button_game"
             android:layout_alignRight="@id/btn8"
             android:layout_below="@id/btn8"
+            android:onClick="btnClicked"
             android:text="5"
-            android:textSize="25dp"
             app:layout_heightPercent="25%"
             app:layout_widthPercent="25%" />
 
         <Button
-            android:onClick="btnClicked"
-            style="@style/button_game"
             android:id="@+id/btn6"
+            style="@style/button_game"
             android:layout_alignRight="@id/btn9"
             android:layout_below="@id/btn9"
+            android:onClick="btnClicked"
             android:text="6"
-            android:textSize="25dp"
             app:layout_heightPercent="25%"
             app:layout_widthPercent="25%" />
 
         <Button
-            android:onClick="btnClicked"
+            android:id="@+id/btnClear"
             style="@style/button_game"
-            android:id="@+id/btnDivide"
+            android:layout_below="@id/textViewShowNr"
             android:layout_toRightOf="@id/btn9"
-            android:layout_below="@id/btnClear"
-            android:text="/"
-            android:textSize="25dp"
-            app:layout_heightPercent="25%"
+            android:onClick="btnClicked"
+            android:text="C"
+            app:layout_heightPercent="20%"
             app:layout_widthPercent="25%" />
 
         <Button
-            android:onClick="btnClicked"
+            android:id="@+id/btnDivide"
             style="@style/button_game"
+            android:layout_below="@id/btnClear"
+            android:layout_toRightOf="@id/btn9"
+            android:onClick="btnClicked"
+            android:text="/"
+            app:layout_heightPercent="20%"
+            app:layout_widthPercent="25%" />
+
+        <Button
             android:id="@+id/btn1"
+            style="@style/button_game"
             android:layout_alignRight="@id/btn4"
             android:layout_below="@id/btn4"
+            android:onClick="btnClicked"
             android:text="1"
-            android:textSize="25dp"
             app:layout_heightPercent="25%"
             app:layout_widthPercent="25%" />
 
         <Button
-            android:onClick="btnClicked"
-            style="@style/button_game"
             android:id="@+id/btn2"
+            style="@style/button_game"
             android:layout_alignRight="@id/btn5"
             android:layout_below="@id/btn5"
+            android:onClick="btnClicked"
             android:text="2"
-            android:textSize="25dp"
             app:layout_heightPercent="25%"
             app:layout_widthPercent="25%" />
 
         <Button
-            android:onClick="btnClicked"
-            style="@style/button_game"
             android:id="@+id/btn3"
+            style="@style/button_game"
             android:layout_alignRight="@id/btn6"
             android:layout_below="@id/btn6"
+            android:onClick="btnClicked"
             android:text="3"
-            android:textSize="25dp"
             app:layout_heightPercent="25%"
             app:layout_widthPercent="25%" />
 
         <Button
-            android:onClick="btnClicked"
-            style="@style/button_game"
             android:id="@+id/btnMultiply"
-            android:layout_alignRight="@id/btnDivide"
+            style="@style/button_game"
             android:layout_below="@id/btnDivide"
+            android:layout_toRightOf="@id/btn6"
+            android:onClick="btnClicked"
             android:text="*"
-            android:textSize="25dp"
-            app:layout_heightPercent="25%"
+            app:layout_heightPercent="20%"
             app:layout_widthPercent="25%" />
 
         <Button
-            android:onClick="btnClicked"
-            style="@style/button_game"
             android:id="@+id/btnAdd"
-            android:layout_alignRight="@id/btnMultiply"
+            style="@style/button_game"
             android:layout_below="@id/btnMultiply"
+            android:layout_toRightOf="@id/btn3"
+            android:onClick="btnClicked"
             android:text="+"
-            android:textSize="25dp"
-            app:layout_heightPercent="25%"
+            app:layout_heightPercent="20%"
             app:layout_widthPercent="25%" />
 
         <Button
-            android:onClick="btnClicked"
-            style="@style/button_game"
-            android:id="@+id/btnSubtract"
-            android:layout_alignRight="@id/btnMultiply"
-            android:layout_below="@id/btnAdd"
-            android:text="-"
-            android:textSize="25dp"
-            app:layout_heightPercent="25%"
-            app:layout_widthPercent="25%" />
-
-        <Button
-            android:onClick="btnClicked"
-            style="@style/button_game"
             android:id="@+id/btnAnswer"
+            style="@style/button_game"
             android:layout_alignRight="@id/btn3"
             android:layout_below="@id/btn3"
+            android:onClick="btnClicked"
             android:text="="
-            android:textSize="25dp"
             app:layout_heightPercent="25%"
             app:layout_widthPercent="25%" />
 
         <Button
-            android:onClick="btnClicked"
+            android:id="@+id/btnSubtract"
             style="@style/button_game"
+            android:layout_below="@id/btnAdd"
+            android:layout_toRightOf="@id/btnAnswer"
+            android:onClick="btnClicked"
+            android:text="-"
+            app:layout_heightPercent="20%"
+            app:layout_widthPercent="25%" />
+
+        <Button
             android:id="@+id/btn0"
+            style="@style/button_game"
             android:layout_alignRight="@id/btn1"
             android:layout_below="@id/btn1"
+            android:onClick="btnClicked"
             android:text="0"
-            android:textSize="25dp"
             app:layout_heightPercent="25%"
             app:layout_widthPercent="25%" />
 
         <Button
-            android:onClick="btnClicked"
-            style="@style/button_game"
             android:id="@+id/btnComma"
+            style="@style/button_game"
             android:layout_alignRight="@id/btn2"
             android:layout_below="@id/btn2"
+            android:onClick="btnClicked"
             android:text="."
-            android:textSize="25dp"
             app:layout_heightPercent="25%"
             app:layout_widthPercent="25%" />
 
