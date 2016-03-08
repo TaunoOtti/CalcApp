@@ -21,11 +21,13 @@ public class MainActivity extends AppCompatActivity {
     private static String strDouble = "";
     private TextView textViewShow;
 
+    private Calculator calc = new Calculator();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Log.d(TAG, "onCreateCalled");
         }
         setContentView(R.layout.activity_main);
@@ -54,65 +56,116 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void btnClicked(View view){
+
+    public void btnClicked(View view) {
         Button btn = (Button) view;
         String idAsString = btn.getResources().getResourceName(btn.getId());
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Log.d(TAG, "Button pressed :" + idAsString);
         }
-        if(btn.getText().equals("C")){
-            strDouble = "";
-            showContent();
-        }
 
-        if(Calculator.notEqualChar(btn) == true){
-            if(btn.getText().toString().contains(".") && strDouble.contains(".")){
-//                Toast.makeText(getApplicationContext(), "koma juba lisatud, palju sa veel tahad",
-//                        Toast.LENGTH_SHORT).show();
-                return;
+        if (btn.getText().equals("C")) {
+            resetAnswer();
+        } else if (btn.getText().equals("=")) {
+            calculateAnswer();
+        } else if (!calc.operatorCheck(btn)) {
+            checkForCommas(btn);
+        } else if (calc.operatorCheck(btn)) {
+            /*if(strDouble.equals("")){
+                calc.addOperator(btn);
+            }*/
+            if (!strDouble.equals("")) {
+
+                calc.addNumber(strDouble);
+                calc.addOperator(btn);
+                strDouble = "";
+                showContent();
+            } else {
+                /*calc.addNumber(strDouble);
+                calc.addOperator(btn);
+                strDouble = "";
+                showContent();*/
             }
+
+        }
+        //for debug
+        ArrayList<String> t = calc.getMem();
+        String s = Integer.toString(t.size());
+        for (int i = 0; i < t.size(); i++) {
+            if (BuildConfig.DEBUG) {
+                Log.d(TAG, t.get(i));
+
+            }
+        }
+        Log.d(TAG, s);
+    }
+
+
+    public void showContent() {
+
+        textViewShow.setText(strDouble);
+    }
+
+    public void calculateAnswer() {
+        calc.addNumber(strDouble);
+        strDouble = "";
+        strDouble = calc.calculate();
+        showContent();
+    }
+
+    public void resetAnswer() {
+        strDouble = "";
+        calc.reset();
+        showContent();
+    }
+
+    public void checkForCommas(Button btn) {
+        if (btn.getText().toString().contains(".") && strDouble.contains(".")) {
+
+        } else {
             strDouble = strDouble + btn.getText();
             showContent();
         }
-        /*if(!btn.getText().toString().equals("=")){
-            Calculator.addToProgress(btn);
-        }else{
-            double ans = Calculator.calculateAnswer();
-            textViewShow.setText("" + ans);
-        }*/
-
-
-
-    }
-
-    public void showContent(){
-        textViewShow.setText(strDouble);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if(BuildConfig.DEBUG) { Log.d(TAG, "onStartCalled"); }
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "onStartCalled");
+        }
     }
+
     @Override
     protected void onResume() {
         super.onResume();
-        if(BuildConfig.DEBUG) { Log.d(TAG, "onResumeCalled"); }
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "onResumeCalled");
+        }
     }
+
     @Override
     protected void onPause() {
         super.onPause();
-        if(BuildConfig.DEBUG) { Log.d(TAG, "onPauseCalled"); }
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "onPauseCalled");
+        }
     }
+
     @Override
     protected void onStop() {
         super.onStop();
-        if(BuildConfig.DEBUG) { Log.d(TAG, "onStopCalled"); }
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "onStopCalled");
+        }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(BuildConfig.DEBUG) { Log.d(TAG, "onDestroyCalled"); }
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "onDestroyCalled");
+        }
     }
 
 
