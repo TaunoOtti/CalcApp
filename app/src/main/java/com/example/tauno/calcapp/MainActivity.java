@@ -16,11 +16,16 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String STATE_NUMBERS = "Numbers in memory";
+    private static final String STATE_FLAG = "Boolean";
+    private static final String STATE_SAVEDVALUE = "LastAnswer";
+    private static final String STATE_OPERATOR = "Operator";
+
     private static final String TAG = "MainActivity";
     private static String strDouble = "";
     private TextView textViewShow;
 
-    private Calculator calc = new Calculator();
+    private CalculatorEngine c = new CalculatorEngine();
 
 
     @Override
@@ -33,33 +38,22 @@ public class MainActivity extends AppCompatActivity {
         textViewShow = (TextView) findViewById(R.id.textViewShowNr);
         textViewShow.setText(strDouble);
 
-    }
+        if (savedInstanceState != null) {
+            if (BuildConfig.DEBUG) {
+                Log.d(TAG, "Restoring state");
+            }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            c.setNumbers(savedInstanceState.getStringArray(STATE_NUMBERS));
+            c.setOp(savedInstanceState.getChar(STATE_OPERATOR));
+            c.setFlag(savedInstanceState.getBoolean(STATE_FLAG));
+            c.setSavedValue(savedInstanceState.getString(STATE_SAVEDVALUE));
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void btnClicked(View view) {
         Button btn = (Button) view;
         String idAsString = btn.getResources().getResourceName(btn.getId());
+
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "Button pressed :" + idAsString);
         }
@@ -68,62 +62,74 @@ public class MainActivity extends AppCompatActivity {
             resetAnswer();
         } else if (btn.getText().equals("=")) {
             calculateAnswer();
-        } else if (!calc.operatorCheck(btn)) {
-            checkForCommas(btn);
-        } else if (calc.operatorCheck(btn)) {
-            if (strDouble.equals("")) {
-                calc.addOperator(btn);
-            }
-            if (!strDouble.equals("")) {
-                addOperat(btn);
-            }
+        } else if (!c.operatorCheck(btn)) {
+            saveNumber(btn);
+        } else if (c.operatorCheck(btn)) {
+            setOperator(btn);
         }
-        //for debug
-        ArrayList<String> t = calc.getMem();
-        String s = Integer.toString(t.size());
-        for (int i = 0; i < t.size(); i++) {
-            if (BuildConfig.DEBUG) {
-                Log.d(TAG, t.get(i));
 
-            }
+        //DEBUG
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, String.valueOf(c.forDebug()));
+            Log.d(TAG, c.forDebug1());
+            Log.d(TAG, c.returnSavedValue());
         }
-        Log.d(TAG, s);
+
     }
-
 
 
     public void showContent() {
-
         textViewShow.setText(strDouble);
     }
 
-    public void addOperat(Button btn) {
-        calc.addNumber(strDouble);
-        calc.addOperator(btn);
+    public void setOperator(Button button) {
         strDouble = "";
-        showContent();
+        if (c.checkIfTwoNumbers()) {
+            calculateAnswer();
+        }
+        c.setOperator(button.getText().toString());
     }
 
+
     public void calculateAnswer() {
-        calc.addNumber(strDouble);
-        strDouble = "";
-        strDouble = calc.calculate();
-        showContent();
+        if (c.checkIfTwoNumbers()) {
+            c.calculateAns();
+            strDouble = c.returnSavedValue();
+            showContent();
+        }
+
     }
 
     public void resetAnswer() {
         strDouble = "";
-        calc.reset();
+        c.reset();
         showContent();
     }
+//TODO: KOMA EI TÖÖTA.
+    public void saveNumber(Button btn) {
 
-    public void checkForCommas(Button btn) {
+        String nr = btn.getText().toString();
+
         if (btn.getText().toString().contains(".") && strDouble.contains(".")) {
-
-        } else {
-            strDouble = strDouble + btn.getText();
-            showContent();
+            return;
+        } else if (!c.getFlag()) {
+                strDouble = strDouble + btn.getText();
+                c.addNumber(nr);
+                showContent();
+            } else {
+                c.addNumber(nr);
+                strDouble = c.getSecondNr();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString(STATE_SAVEDVALUE, c.returnSavedValue());
+        savedInstanceState.putChar(STATE_OPERATOR, c.returnChar());
+        savedInstanceState.putBoolean(STATE_FLAG, c.returnFlag());
+        savedInstanceState.putStringArray(STATE_NUMBERS, c.returnNumbers());
+
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override

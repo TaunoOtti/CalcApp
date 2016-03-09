@@ -19,9 +19,14 @@
         <TextView
             android:id="@+id/textViewShowNr"
             style="@style/textview_answer"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:gravity="right"
+            android:text="asd"
+            android:minHeight="100sp"
+            android:maxLines="1"
+
+            android:maxLength="20"/>
 
     </RelativeLayout>
 
