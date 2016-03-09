@@ -12,7 +12,10 @@ public class Calculator {
     private double sum;
 
     public void addNumber(String str) {
-        numberMemory.add(str);
+        if(!str.equals("")){
+            numberMemory.add(str);
+        }
+
     }
 
     //add operator to array, if last element is opertor, it won't add any more and changes
@@ -50,11 +53,19 @@ public class Calculator {
     }
 
     public String calculate() {
-        sum = 0;
-        calculateSum();
         String doubleSum = "";
-        return doubleSum.valueOf(sum);
-
+        sum = 0;
+        if(numberMemory.isEmpty() || numberMemory.size() == 0){
+            return "";
+        }
+        else if(checkIfOperatorLastElement()){
+            numberMemory.remove(numberMemory.size()-1);
+            calculateSum();
+            return String.valueOf(sum);
+        }else {
+            calculateSum();
+            return String.valueOf(sum);
+        }
     }
 
     public void calculateSum() {
@@ -91,7 +102,7 @@ public class Calculator {
 
     public void setSum(int i) {
         String doubleSum = "";
-        numberMemory.set(i + 1, doubleSum.valueOf(sum));
+        numberMemory.set(i + 1, String.valueOf(sum));
         numberMemory.remove(i);
         numberMemory.remove(i - 1);
     }

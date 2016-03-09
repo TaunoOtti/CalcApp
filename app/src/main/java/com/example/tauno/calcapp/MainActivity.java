@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private static ArrayList<Double> nrMem;
     private static String strDouble = "";
     private TextView textViewShow;
 
@@ -32,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_main);
         textViewShow = (TextView) findViewById(R.id.textViewShowNr);
+        textViewShow.setText(strDouble);
 
     }
 
@@ -71,22 +71,12 @@ public class MainActivity extends AppCompatActivity {
         } else if (!calc.operatorCheck(btn)) {
             checkForCommas(btn);
         } else if (calc.operatorCheck(btn)) {
-            /*if(strDouble.equals("")){
+            if (strDouble.equals("")) {
                 calc.addOperator(btn);
-            }*/
-            if (!strDouble.equals("")) {
-
-                calc.addNumber(strDouble);
-                calc.addOperator(btn);
-                strDouble = "";
-                showContent();
-            } else {
-                /*calc.addNumber(strDouble);
-                calc.addOperator(btn);
-                strDouble = "";
-                showContent();*/
             }
-
+            if (!strDouble.equals("")) {
+                addOperat(btn);
+            }
         }
         //for debug
         ArrayList<String> t = calc.getMem();
@@ -101,9 +91,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     public void showContent() {
 
         textViewShow.setText(strDouble);
+    }
+
+    public void addOperat(Button btn) {
+        calc.addNumber(strDouble);
+        calc.addOperator(btn);
+        strDouble = "";
+        showContent();
     }
 
     public void calculateAnswer() {
