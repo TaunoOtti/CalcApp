@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         Button btn = (Button) view;
         String idAsString = btn.getResources().getResourceName(btn.getId());
 
+        //DEBUG
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "Button pressed :" + idAsString);
         }
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         c.reset();
         showContent();
     }
-//TODO: KOMA EI TÖÖTA.
+
     public void saveNumber(Button btn) {
 
         String nr = btn.getText().toString();
@@ -119,11 +120,18 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 c.addNumber(nr);
                 strDouble = c.getSecondNr();
+                showContent();
         }
+    }
+
+    //TODO: resize
+    public void setTextSize(){
+        textViewShow.setTextSize(50);
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
+
         savedInstanceState.putString(STATE_SAVEDVALUE, c.returnSavedValue());
         savedInstanceState.putChar(STATE_OPERATOR, c.returnChar());
         savedInstanceState.putBoolean(STATE_FLAG, c.returnFlag());

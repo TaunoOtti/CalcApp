@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="2dp"
-    android:paddingLeft="2dp"
-    android:paddingRight="2dp"
-    android:paddingTop="2dp">
+    android:paddingBottom="4dp"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:paddingTop="4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,10 +22,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="asd"
+            android:text=""
             android:minHeight="100sp"
             android:maxLines="1"
-
             android:maxLength="20"/>
 
     </RelativeLayout>
@@ -36,7 +35,6 @@
         android:layout_height="match_parent">
 
         <Button
-
             android:id="@+id/btn7"
             style="@style/button_game"
             android:onClick="btnClicked"

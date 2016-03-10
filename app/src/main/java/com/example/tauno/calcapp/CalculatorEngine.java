@@ -34,7 +34,7 @@ public class CalculatorEngine {
         double a = Double.parseDouble(numbers[0]);
         double b = Double.parseDouble(numbers[1]);
 
-        if (numbers[0] != "" && numbers[1] != "") {
+        if (!numbers[0].equals("") && !numbers[1].equals("")) {
             switch (operator) {
                 case '+':
                     savedValue = a + b;
@@ -72,7 +72,7 @@ public class CalculatorEngine {
     }
 
     public boolean checkIfTwoNumbers() {
-        if (numbers[0] != "" && numbers[1] != "") {
+        if ((!numbers[0].equals("") && !numbers[1].equals("")) && (!numbers[0].equals(".") && !numbers[1].equals(".")) ) {
             return true;
         }
         return false;
@@ -85,7 +85,6 @@ public class CalculatorEngine {
     public boolean getFlag() {
         return flag;
     }
-
 
     public String returnSavedValue() {
         return String.valueOf(savedValue);
