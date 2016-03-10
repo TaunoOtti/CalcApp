@@ -2,9 +2,11 @@ package com.example.tauno.calcapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,16 +22,19 @@ public class MainActivity extends AppCompatActivity {
     private static final String STATE_FLAG = "Boolean";
     private static final String STATE_SAVEDVALUE = "LastAnswer";
     private static final String STATE_OPERATOR = "Operator";
+    private static final String STATE_CURRENTNUMBER = "CurrentNr";
 
     private static final String TAG = "MainActivity";
     private static String strDouble = "";
     private TextView textViewShow;
+    private int orient;
 
     private CalculatorEngine c = new CalculatorEngine();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        orient = getScreenOrientation();
         super.onCreate(savedInstanceState);
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "onCreateCalled");
@@ -47,7 +52,10 @@ public class MainActivity extends AppCompatActivity {
             c.setOp(savedInstanceState.getChar(STATE_OPERATOR));
             c.setFlag(savedInstanceState.getBoolean(STATE_FLAG));
             c.setSavedValue(savedInstanceState.getString(STATE_SAVEDVALUE));
+            strDouble = savedInstanceState.getString(STATE_CURRENTNUMBER);
+            showContent();
         }
+
     }
 
     public void btnClicked(View view) {
@@ -69,17 +77,27 @@ public class MainActivity extends AppCompatActivity {
             setOperator(btn);
         }
 
+
         //DEBUG
+        String orientation = "";
+        if (orient == 1) {
+            orientation = "portrait";
+        } else if (orient == 2) {
+            orientation = "landscape";
+        } else {
+            orientation = "ERROR";
+        }
         if (BuildConfig.DEBUG) {
             Log.d(TAG, String.valueOf(c.forDebug()));
             Log.d(TAG, c.forDebug1());
             Log.d(TAG, c.returnSavedValue());
+            Log.d(TAG, orientation);
         }
 
     }
 
-
     public void showContent() {
+        setTextSize();
         textViewShow.setText(strDouble);
     }
 
@@ -114,19 +132,36 @@ public class MainActivity extends AppCompatActivity {
         if (btn.getText().toString().contains(".") && strDouble.contains(".")) {
             return;
         } else if (!c.getFlag()) {
-                strDouble = strDouble + btn.getText();
-                c.addNumber(nr);
-                showContent();
-            } else {
-                c.addNumber(nr);
-                strDouble = c.getSecondNr();
-                showContent();
+            strDouble = strDouble + btn.getText();
+            c.addNumber(nr);
+            showContent();
+        } else {
+            c.addNumber(nr);
+            strDouble = c.getSecondNr();
+            showContent();
         }
     }
 
-    //TODO: resize
-    public void setTextSize(){
-        textViewShow.setTextSize(50);
+    public void setTextSize() {
+        if (strDouble.length() > 10 && orient == 1) {
+            textViewShow.setTextSize(40);
+        } else if (strDouble.length() > 10 && orient == 2) {
+            textViewShow.setTextSize(60);
+        }
+    }
+
+
+    // SOURCE http://stackoverflow.com/questions/14955728/getting-orientation-of-android-device
+    public int getScreenOrientation() {
+
+        // Query what the orientation currently really is.
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            return 1; // Portrait Mode
+
+        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            return 2;   // Landscape mode
+        }
+        return 0;
     }
 
     @Override
@@ -136,6 +171,11 @@ public class MainActivity extends AppCompatActivity {
         savedInstanceState.putChar(STATE_OPERATOR, c.returnChar());
         savedInstanceState.putBoolean(STATE_FLAG, c.returnFlag());
         savedInstanceState.putStringArray(STATE_NUMBERS, c.returnNumbers());
+
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "Saving strDouble to STATE, value is: " + c.getFirstNr());
+        }
+        savedInstanceState.putString(STATE_CURRENTNUMBER, c.getFirstNr());
 
         super.onSaveInstanceState(savedInstanceState);
     }

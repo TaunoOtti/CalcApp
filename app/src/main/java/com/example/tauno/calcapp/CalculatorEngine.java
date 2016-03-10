@@ -2,6 +2,8 @@ package com.example.tauno.calcapp;
 
 import android.widget.Button;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by Tauno on 9.03.2016.
  */
@@ -11,13 +13,13 @@ public class CalculatorEngine {
     private char operator = '\u0000';
     private double savedValue = 0;
     private boolean flag = false;
-    private static final int maxLength = 20;
+    private static final int maxLength = 14;
 
 
     public void addNumber(String number) {
-        if (!flag && numbers[0].length() <= maxLength ) {
+        if (!flag && numbers[0].length() <= maxLength) {
             numbers[0] += number;
-        } else if (flag && numbers[0].length() <= maxLength ) {
+        } else if (flag && numbers[1].length() <= maxLength) {
             numbers[1] += number;
         }
     }
@@ -49,6 +51,8 @@ public class CalculatorEngine {
                     savedValue = a / b;
                     break;
             }
+            savedValue = round(savedValue);
+
             numbers[0] = String.valueOf(savedValue);
             numbers[1] = "";
         }
@@ -64,6 +68,12 @@ public class CalculatorEngine {
         }
     }
 
+    public double round(double a) {
+
+        return (double) Math.round(a * 100.0) / 100.0;
+    }
+
+
     public void reset() {
         savedValue = 0;
         operator = '\u0000';
@@ -72,10 +82,14 @@ public class CalculatorEngine {
     }
 
     public boolean checkIfTwoNumbers() {
-        if ((!numbers[0].equals("") && !numbers[1].equals("")) && (!numbers[0].equals(".") && !numbers[1].equals(".")) ) {
+        if ((!numbers[0].equals("") && !numbers[1].equals("")) && (!numbers[0].equals(".") && !numbers[1].equals("."))) {
             return true;
         }
         return false;
+    }
+
+    public String getFirstNr() {
+        return numbers[0];
     }
 
     public String getSecondNr() {
@@ -127,5 +141,6 @@ public class CalculatorEngine {
     public String forDebug1() {
         return numbers[0] + " " + numbers[1];
     }
+
 
 }
