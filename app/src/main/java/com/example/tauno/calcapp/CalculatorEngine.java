@@ -51,8 +51,11 @@ public class CalculatorEngine {
                     savedValue = a / b;
                     break;
             }
-            savedValue = round(savedValue);
-
+            if(savedValue == Double.POSITIVE_INFINITY){
+                return;
+            } else {
+                savedValue = round(savedValue);
+            }
             numbers[0] = String.valueOf(savedValue);
             numbers[1] = "";
         }
@@ -101,7 +104,13 @@ public class CalculatorEngine {
     }
 
     public String returnSavedValue() {
-        return String.valueOf(savedValue);
+        if(savedValue == Double.POSITIVE_INFINITY ){
+            reset();
+            return "Infinity number";
+        }else {
+            return String.valueOf(savedValue);
+        }
+
     }
 
     public String[] returnNumbers() {
