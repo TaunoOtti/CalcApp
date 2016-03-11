@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     public void saveNumber(Button btn) {
 
         String nr = btn.getText().toString();
-
+        checkIfInfinity();
         if (btn.getText().toString().contains(".") && strDouble.contains(".")) {
             return;
         } else if (!c.getFlag()) {
@@ -147,6 +147,14 @@ public class MainActivity extends AppCompatActivity {
             textViewShow.setTextSize(40);
         } else if (strDouble.length() > 10 && orient == 2) {
             textViewShow.setTextSize(60);
+        }
+    }
+
+    public void checkIfInfinity(){
+        if(textViewShow.getText().toString().equals("Math Error")) {
+            resetAnswer();
+        }else {
+
         }
     }
 

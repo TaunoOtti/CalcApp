@@ -106,7 +106,7 @@ public class CalculatorEngine {
     public String returnSavedValue() {
         if(savedValue == Double.POSITIVE_INFINITY ){
             reset();
-            return "Infinity number";
+            return "Math Error";
         }else {
             return String.valueOf(savedValue);
         }
