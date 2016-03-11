@@ -12,7 +12,7 @@ public class CalculatorEngine {
     private String[] numbers = {"", ""};
     private char operator = '\u0000';
     private double savedValue = 0;
-    private boolean flag = false;
+    private boolean flag = false;// true if there is first number
     private static final int maxLength = 14;
 
 
@@ -72,7 +72,6 @@ public class CalculatorEngine {
     }
 
     public double round(double a) {
-
         return (double) Math.round(a * 100.0) / 100.0;
     }
 

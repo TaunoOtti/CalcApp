@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CalculatorEngine c = new CalculatorEngine();
 
+//TODO: mitu nulli saab järjest kirjutada
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         textViewShow = (TextView) findViewById(R.id.textViewShowNr);
         textViewShow.setText(strDouble);
+
 
         if (savedInstanceState != null) {
             if (BuildConfig.DEBUG) {
@@ -101,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         textViewShow.setText(strDouble);
     }
 
+
     public void setOperator(Button button) {
         strDouble = "";
         if (c.checkIfTwoNumbers()) {
@@ -129,8 +132,10 @@ public class MainActivity extends AppCompatActivity {
 
         String nr = btn.getText().toString();
         checkIfInfinity();
+        //check if number contains coma
         if (btn.getText().toString().contains(".") && strDouble.contains(".")) {
             return;
+            //first number not set flag = false
         } else if (!c.getFlag()) {
             strDouble = strDouble + btn.getText();
             c.addNumber(nr);
